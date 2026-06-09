@@ -2,5 +2,5 @@
 
 export class CreateUserResponseDto {
   // user: UserEntity;
-  message: string;
+  message!: string;
 }

@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ProfileModule } from './profile/profile.module';
 import { EmailModule } from './email/email.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { EmailModule } from './email/email.module';
     AuthModule,
     ProfileModule,
     EmailModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

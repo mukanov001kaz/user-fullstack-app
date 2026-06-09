@@ -14,14 +14,20 @@ export class ProfileEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'int' })
-  age: number;
+  @Column()
+  age: string;
 
   @Column({ type: 'varchar', nullable: false })
   phone: string;
 
   @Column({ type: 'varchar', nullable: false })
   adress: string;
+
+  @Column({ nullable: true })
+  avatarUrl: string;
+
+  @Column({ nullable: true })
+  avatarPublicId: string;
 
   @OneToOne(() => UserEntity, (user) => user.profile, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })

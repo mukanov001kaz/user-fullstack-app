@@ -1,0 +1,46 @@
+{
+    "headerTop": {
+        "home": "Басты бет",
+        "about": "Біз туралы",
+        "contact": "Байланыс",
+        "features": "Мүмкіндіктер",
+        "login": "Кіру",
+        "signup": "Тіркелу",
+        "dashboard": "Әкімшілік кабинет"
+    },
+    "headerBottom": {
+        "title": "Толық функционалды пайдаланушыларды басқару жүйесі",
+        "description": "Тіркелу, кіру, профильді басқару және пайдаланушылар мен рөлдерді басқаруға арналған әкімшілік панель.",
+        "getStarted": "Бастау",
+        "readDocs": "Құжаттарды оқу"
+    },
+    "loginForm": {
+        "email": "Электрондық пошта",
+        "password": "Құпия сөз",
+        "forgotPassword": "Құпия сөзді ұмытып қалдыңыз ба?",
+        "loginButton": "Кіру",
+        "noAccount": "Аккаунт жоқ па?",
+        "signUp": "Тіркелу",
+        "or": "немесе",
+        "confirmPassword": "Құпия сөзді растау",
+        "name": "Атыңыз",
+        "registration": "Тіркелу"
+    },
+    "register": {
+        "nameError": "Аты кемінде 3 таңбадан тұруы керек",
+        "emailError": "Email дұрыс емес",
+        "passwordError": "Құпия сөз кемінде 6 таңбадан тұруы керек",
+        "confirmPasswordError": "Құпия сөздер сәйкес келмейді"
+    },
+    "dashboardMenu": {
+        "dashboard": "Басқару тақтасы",
+        "competitions": "Жарыстар",
+        "users": "Қатысушылар",
+        "reports": "Есептер",
+        "settings": "Баптаулар"
+    },
+    "auth": {
+        "registrationSuccess": "Пайдаланушы сәтті тіркелді!",
+        "emailAlreadyExists": "Мұндай электрондық пошта бұрыннан тіркелген"
+    }
+}

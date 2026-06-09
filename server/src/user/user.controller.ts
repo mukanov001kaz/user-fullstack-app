@@ -18,15 +18,15 @@ import { Roles } from 'src/auth/decorators/roles.decorators';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(AuthJwtGuards, RolesGuard)
-  @Roles('admin')
+  // @UseGuards(AuthJwtGuards, RolesGuard)
+  // @Roles('admin')
   @Get('all')
   async findAll() {
     return await this.userService.findAll();
   }
 
-  @UseGuards(AuthJwtGuards, RolesGuard)
-  @Roles('admin', 'user')
+  // @UseGuards(AuthJwtGuards, RolesGuard)
+  // @Roles('admin', 'user')
   @Post('create')
   async createdUser(@Body() dto: CreatedUserDto) {
     return await this.userService.createUser(dto);

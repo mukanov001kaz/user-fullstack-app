@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreatedUserDto } from 'src/user/dto/created-user.dto';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
@@ -32,15 +28,13 @@ export class AuthService {
   }
 
   async register(dto: CreatedUserDto) {
-    const { email } = dto;
+    await this.userService.createUser(dto);
 
-    const existing = await this.userService.findByEmail(email);
+    await this.sendEmail(dto.email);
 
-    if (existing) throw new BadRequestException('Email уже используется');
-
-    await this.sendEmail(email);
-
-    return await this.userService.createUser(dto);
+    return {
+      message: 'registrationSuccess',
+    };
   }
 
   async login(res: Response, dto: LoginDto) {
@@ -76,7 +70,7 @@ export class AuthService {
 
     this.setCookie(res, refreshToken);
 
-    return { accessToken, message: 'Успешный вход' };
+    return { accessToken, id, name };
   }
 
   private genereteTokens(name: string, id: string, role: UserRole) {
@@ -145,14 +139,15 @@ export class AuthService {
     const payload = { email, type: 'verify-email' };
 
     return this.jwtService.sign(payload, {
-      expiresIn: '10m',
+      expiresIn: '20m',
     });
   }
 
   async sendEmail(email: string) {
     const token = this.generateEmailToken(email);
 
-    const link = `http://localhost:3000/email/verify?token=${token}`;
+    const link = `http://localhost:3000/email-verify?token=${token}`;
+    console.log('sendEmail', email);
 
     return await this.emailService.sendVerifyEmail(email, link);
   }

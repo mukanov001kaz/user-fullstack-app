@@ -43,13 +43,13 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  async createUser(dto: CreatedUserDto): Promise<CreateUserResponseDto> {
+  async createUser(dto: CreatedUserDto): Promise<UserEntity> {
     const { name, email, password } = dto;
 
     const existengEmail = await this.findByEmail(email);
 
     if (existengEmail) {
-      throw new BadRequestException('Email уже сушествует в методе Create');
+      throw new BadRequestException('emailAlreadyExists');
     }
 
     const newPassword = await bcrypt.hash(password, 10);
@@ -60,14 +60,7 @@ export class UserService {
       password: newPassword,
     });
 
-    // const newUser = await this.userRepository.save(user);
-    await this.userRepository.save(user);
-
-    return {
-      // user: newUser,
-      message:
-        'Пользователь успешно создан для метода Create и записан в базу данных',
-    };
+    return await this.userRepository.save(user);
   }
 
   async updateUser(

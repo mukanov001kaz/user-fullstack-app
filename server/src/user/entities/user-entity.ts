@@ -26,12 +26,15 @@ export class UserEntity {
   @Column({
     type: 'enum',
     enum: UserRole,
-    default: UserRole.ADMIN,
+    default: UserRole.USER,
   })
   role: UserRole;
 
   @Column({ default: false })
   isEmailVerified: boolean;
+
+  @Column({ default: false })
+  isProfileCompleted: boolean;
 
   @OneToOne(() => ProfileEntity, (profile) => profile.user, { cascade: true })
   profile: ProfileEntity;

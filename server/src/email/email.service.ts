@@ -13,6 +13,8 @@ export class EmailService {
   ) {}
 
   async sendVerifyEmail(email: string, link: string): Promise<object> {
+    console.log('sendVerifyEmail', email);
+
     await this.mailerService.sendMail({
       to: email,
       subject: 'Подтвердите почту',
@@ -26,26 +28,37 @@ export class EmailService {
     if (!token) {
       throw new BadRequestException('Токен отсутствует');
     }
-    const payload = await this.jwtService.verifyAsync<EmailVerifyType>(token);
 
-    if (payload.type !== 'verify-email') {
-      throw new BadRequestException('Не верный токен');
+    try {
+      const payload = await this.jwtService.verifyAsync<EmailVerifyType>(token);
+
+      if (payload.type !== 'verify-email') {
+        throw new BadRequestException('Неверный токен');
+      }
+
+      const user = await this.userService.findByEmail(payload.email);
+
+      if (!user) {
+        throw new BadRequestException('Пользователь не найден');
+      }
+
+      if (user.isEmailVerified) {
+        return {
+          message: 'Email уже подтвержден',
+        };
+      }
+
+      user.isEmailVerified = true;
+
+      await this.userService.save(user);
+
+      return {
+        message: 'Email подтвержден',
+      };
+    } catch (error) {
+      throw new BadRequestException(
+        'Ссылка подтверждения истекла или недействительна',
+      );
     }
-
-    const user = await this.userService.findByEmail(payload.email);
-
-    if (!user) {
-      throw new BadRequestException('Пользователь не найден');
-    }
-
-    if (user.isEmailVerified) {
-      return { message: 'Email уже подтвержден' };
-    }
-
-    user.isEmailVerified = true;
-
-    await this.userService.save(user);
-
-    return { message: 'Email подтвержден' };
   }
 }

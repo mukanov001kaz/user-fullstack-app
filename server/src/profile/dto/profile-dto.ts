@@ -1,12 +1,20 @@
-import { IsInt, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 
 export class ProfileDto {
-  @IsInt()
-  age: number;
+  @IsString()
+  age: string;
 
   @IsString()
   phone: string;
 
   @IsString()
   adress: string;
+
+  @IsString()
+  @IsOptional()
+  avatarUrl: string;
+
+  @IsString()
+  @IsOptional()
+  avatarPublicId: string;
 }
